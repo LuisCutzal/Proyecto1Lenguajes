@@ -12,38 +12,38 @@ class Automatas (object):
         return str(self.nombre_afd)
 
     def getEstados(self):
-        return list(self.estados)
+        return (self.estados)
 
     def getAlfabeto(self):
-        return list(self.alfabeto)
+        return (self.alfabeto)
 
     def getEstadoInicial(self):
         return str(self.estado_inicial)
 
     def getEstadosAceptacion(self):
-        return list(self.estados_aceptacion)
+        return (self.estados_aceptacion)
     
     def getTransicicones(self):
-        return list(self.transiciones)
+        return (self.transiciones)
     
-#---------------get----------------
+#---------------set----------------
     def setNombreAFD(self, nuevoNombre):
         self.nombre_afd=str(nuevoNombre)
     
     def setEstados(self, nuevosEstados):
-        self.estados = list(nuevosEstados)
+        self.estados = (nuevosEstados)
     
     def setAlfabeto(self, nuevoAlfabeto):
-        self.alfabeto = list(nuevoAlfabeto)
+        self.alfabeto = (nuevoAlfabeto)
     
     def setEstadoInicial(self,nuevoEstadoInicial):
         self.estado_inicial = str(nuevoEstadoInicial)
     
     def setEstadosAceptacion(self, nuevoEstadosAceptacion ):
-        self.estados_aceptacion = list(nuevoEstadosAceptacion)
+        self.estados_aceptacion = (nuevoEstadosAceptacion)
     
     def setTransiciones(self, nuevasTransiciones):
-        self.transiciones = list(nuevasTransiciones)
+        self.transiciones = (nuevasTransiciones)
 
     def __str__(self):
         return (self.nombre_afd, self.estados, self.alfabeto, self.estado_inicial, self.estados_aceptacion, self.transiciones)

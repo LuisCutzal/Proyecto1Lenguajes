@@ -63,9 +63,15 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             time.sleep(1)
             Funciones.Agregar()
         elif opcionSub == "2":
-            input("Cargar")
+            print("Eligio Cargar Archivo")
+            print("espere...")
+            time.sleep(1)
+            Funciones.cargar()
         elif opcionSub=="3":
-            input("Evaluar")
+            print("Eligio Evaluar Cadena")
+            print("espere...")
+            time.sleep(1)
+            Funciones.EvaluarCadena()
         elif opcionSub=="4":
             input("Guardar AFD")
         elif opcionSub == "5":

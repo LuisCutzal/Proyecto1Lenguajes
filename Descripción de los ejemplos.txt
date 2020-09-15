@@ -1,0 +1,7 @@
+Gramática y autómata 1: Detecta cadenas binarias con cantidad de ceros impar y unos par.
+
+Gramática y autómata 2: Acepta cadenas binarias con al menos dos ceros, también acepta solo un 1 o cadena vacía.
+
+Gramática y autómata 3: Permite reconocer cadenas con dos letras "a" al inicio y luego acepta
+cualquier combinación de letras "a" y "b". Después de las dos letras "a" puede venir almenos 
+una letras "a" o "b".
