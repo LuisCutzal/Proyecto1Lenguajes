@@ -1,12 +1,13 @@
+import codecs
 class Automatas (object):
-    def __init__(self,nombre,estados,alfabeto,estado_inicial,estados_aceptacion,transiciones):
-        self.nombre_afd=nombre #tipo string
-        self.estados=estados #list() #tipo lista
-        self.alfabeto=alfabeto #list() #tipo lista
-        self.estado_inicial=estado_inicial #tipo string
-        self.estados_aceptacion=estados_aceptacion #list() #tipo lista
-        self.transiciones=transiciones #list() #tipo lista
-
+    def __init__(self, nombre): #veremos
+        self.nombre_afd = str(nombre) #tipo string
+        self.estados=list() #tipo lista
+        self.alfabeto=list() #tipo lista
+        self.estado_inicial=None #tipo string
+        self.estados_aceptacion=list() #tipo lista
+        self.transiciones=list() #tipo lista
+        self.tipo="AFD"
 #---------------get----------------
     def getNombreAFD(self):
         return str(self.nombre_afd)
@@ -18,7 +19,7 @@ class Automatas (object):
         return (self.alfabeto)
 
     def getEstadoInicial(self):
-        return str(self.estado_inicial)
+        return (self.estado_inicial)
 
     def getEstadosAceptacion(self):
         return (self.estados_aceptacion)
@@ -26,9 +27,12 @@ class Automatas (object):
     def getTransicicones(self):
         return (self.transiciones)
     
+    def getTipo(self):
+        return (self.tipo)
+    
 #---------------set----------------
     def setNombreAFD(self, nuevoNombre):
-        self.nombre_afd=str(nuevoNombre)
+        self.nombre_afd=(nuevoNombre)
     
     def setEstados(self, nuevosEstados):
         self.estados = (nuevosEstados)
@@ -37,7 +41,7 @@ class Automatas (object):
         self.alfabeto = (nuevoAlfabeto)
     
     def setEstadoInicial(self,nuevoEstadoInicial):
-        self.estado_inicial = str(nuevoEstadoInicial)
+        self.estado_inicial = (nuevoEstadoInicial)
     
     def setEstadosAceptacion(self, nuevoEstadosAceptacion ):
         self.estados_aceptacion = (nuevoEstadosAceptacion)
@@ -45,5 +49,62 @@ class Automatas (object):
     def setTransiciones(self, nuevasTransiciones):
         self.transiciones = (nuevasTransiciones)
 
-    def __str__(self):
-        return (self.nombre_afd, self.estados, self.alfabeto, self.estado_inicial, self.estados_aceptacion, self.transiciones)
+    
+class Estados(object):
+    def __init__(self, nombre):
+        self.nombre=nombre
+        self.EstadoAceptacion=False #dato boolean
+        self.Estadoinicio=False #dato boolean
+        self.EstadoSiguiente=list()
+
+#-----------------get-----------------------
+    def getNombreEstado(self):
+        return str(self.nombre)
+    
+    def getEstadoAceptacion(self):
+        return self.EstadoAceptacion
+    
+    def getEstadoInicio(self):
+        return self.Estadoinicio
+    
+    def getEstadoSiguiente(self):
+        return self.EstadoSiguiente
+#-------------------set---------------------
+    def setEstadoAceptacion(self, NuevoEstadoAceptacion):
+        self.EstadoAceptacion = NuevoEstadoAceptacion
+    
+    def setEstadoInicio(self, NuevoEstadoInicial):
+        self.Estadoinicio = NuevoEstadoInicial
+    
+    def setEstadoFinal(self, NuevoEstadoSiguiente):
+        self.EstadoSiguiente= NuevoEstadoSiguiente
+
+
+class Transiciones(object): #para todas las transiciones de un afd
+    def __init__(self, inicioTrans, finTrans, datoTrans):
+        self.estadoInicial=inicioTrans
+        self.estadoFinal=finTrans
+        self.entradato=datoTrans
+#---------------get--------------------
+    def getEstadoInicialTransicion(self):
+        return self.estadoInicial
+    
+    def getEstadoFinalTransicion(self):
+        return self.estadoFinal
+    
+    def getDatoTransicion(self):
+        return self.entradato
+
+#--------------set-----------------------
+    def setEstaodInicialTransicion(self, NuevoEstadoInicioTransicion):
+        self.estadoInicial = (NuevoEstadoInicioTransicion)
+    
+    def setEstadoFinalTransicion(self, NuevoEstadoFinalTransicion):
+        self.estadoFinal = NuevoEstadoFinalTransicion
+    
+    def setDatoTransicion(self,NuevoDatoTransicion):
+        self.entradato = NuevoDatoTransicion
+#-----------------str------------------
+
+
+

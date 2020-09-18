@@ -66,7 +66,7 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             print("Eligio Cargar Archivo")
             print("espere...")
             time.sleep(1)
-            Funciones.cargar()
+            Funciones.CargarArchivoAFD()
         elif opcionSub=="3":
             print("Eligio Evaluar Cadena")
             print("espere...")
@@ -85,7 +85,6 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
         else:
             print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
             time.sleep(2)
-
 
 
 def SubMenu2(): #------------------------------modulo Gramáticas Regulares--------------------------------------
@@ -122,6 +121,8 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
             print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
             time.sleep(2)
 
+
+#----------------------main--------------------
 def main():
     print("------------Lenguajes Formales y de Programacion-----------")
     print ("Seccion: B")
