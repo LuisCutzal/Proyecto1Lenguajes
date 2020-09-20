@@ -7,7 +7,6 @@ class Automatas (object):
         self.estado_inicial=None #tipo string
         self.estados_aceptacion=list() #tipo lista
         self.transiciones=list() #tipo lista
-        self.tipo="AFD"
 #---------------get----------------
     def getNombreAFD(self):
         return str(self.nombre_afd)
@@ -27,8 +26,8 @@ class Automatas (object):
     def getTransicicones(self):
         return (self.transiciones)
     
-    def getTipo(self):
-        return (self.tipo)
+    # def getTipo(self):
+       # return (self.tipo)
     
 #---------------set----------------
     def setNombreAFD(self, nuevoNombre):
@@ -104,7 +103,4 @@ class Transiciones(object): #para todas las transiciones de un afd
     
     def setDatoTransicion(self,NuevoDatoTransicion):
         self.entradato = NuevoDatoTransicion
-#-----------------str------------------
-
-
-
+#---------------------todo esto es igual para la gramatica---------------------
