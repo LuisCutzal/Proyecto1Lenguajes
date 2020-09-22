@@ -1,8 +1,7 @@
-import codecs
 class Gramaticas(object):
     def __init__(self,nombreG):
         self.NombreGramaticas=str(nombreG)
-        self.Alfabeto=list() 
+        self.Alfabeto=list() #Terminales
         self.NoTerminales=list() #simbolos
         self.Producciones=list()
         self.Inicio=None

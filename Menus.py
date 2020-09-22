@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import Funciones
+import Cargas_masivas
 def MenuInicio():
     while True:
         os.system('cls')
@@ -61,12 +62,12 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             print("Eligio Crear AFD")
             print("espere...")
             time.sleep(1)
-            Funciones.Agregar()
+            Funciones.AgregarAFD()
         elif opcionSub == "2":
             print("Eligio Cargar Archivo")
             print("espere...")
             time.sleep(1)
-            Funciones.CargarArchivoAFD()
+            Cargas_masivas.CargarArchivoAFD()
         elif opcionSub=="3":
             print("Eligio Evaluar Cadena")
             print("espere...")
@@ -102,7 +103,7 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         print("*****************************")
         opcionSub = input("Escriba uno de los 6 números a  la que quiere ingresar: ")
         if opcionSub== "1":
-            input("Crear")
+            Funciones.AgregarGramatica()
         elif opcionSub == "2":
             input("Cargar")
         elif opcionSub=="3":

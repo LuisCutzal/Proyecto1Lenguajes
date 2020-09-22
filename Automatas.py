@@ -1,4 +1,3 @@
-import codecs
 class Automatas (object):
     def __init__(self, nombre): #veremos
         self.nombre_afd = str(nombre) #tipo string
@@ -25,9 +24,6 @@ class Automatas (object):
     
     def getTransicicones(self):
         return (self.transiciones)
-    
-    # def getTipo(self):
-       # return (self.tipo)
     
 #---------------set----------------
     def setNombreAFD(self, nuevoNombre):
