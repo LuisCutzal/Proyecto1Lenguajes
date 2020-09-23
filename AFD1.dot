@@ -1,0 +1,9 @@
+digraph A  {
+rankdir = LR;
+EMPTY [style=invis]
+EMPTY [shape=point]
+node [shape=circle,style=filled] A
+node [shape=circle,style=filled] B
+node [shape=doublecircle,style=filled] C
+node [shape=circle,style=filled] D
+EMPTY -> A [label="  "];

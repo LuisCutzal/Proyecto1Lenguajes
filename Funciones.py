@@ -9,11 +9,9 @@ from reportlab.lib.pagesizes import letter
 import subprocess
 global ParteAutomata
 ParteAutomata=list()
-#ParteAutomata.append(Automatas)
 global ParteGramatica
 ParteGramatica=list()
-#global Est
-#Est=list()
+
 #-----------comienza agregar respecto a automatas----------------
 def AgregarAFD(): #agregar automatas manualmente
     #Comienza lo del nombre
@@ -68,7 +66,6 @@ def AgregarAFD(): #agregar automatas manualmente
                                     comienza+=1
                             if comienza==0:
                                 ParteAutomata[buscoEstado].getEstados().append(creacionEstado)
-                                
                                 #tengo que retornar
                             else:
                                 input("El estado ya existe, no puede haber dos estados con el mismo  nombre: ")
@@ -688,7 +685,7 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
             gen.drawString(75,545,eT)
             #grafica
             #self.generarDot(nome)
-            arranca = open("C:\\Users\\cutzal\\Desktop\\"+nombre+".dot", 'w')
+            arranca = open("C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot", 'w')
             arranca.write("digraph A  {\n")
             arranca.write("rankdir = LR;\n")
             arranca.write("EMPTY [style=invis]\n")
@@ -707,16 +704,16 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
                             Inicial=ParteAutomata[i].getEstados()[start].getNombreEstado()
                     arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
                     for al in range(len(ParteAutomata[i].getTransicicones())):
-                        arranca.write(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion()+
+                        arranca.write(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado()+
                         " -> "+ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion()+
-                        " [label=\""+ParteAutomata[i].getTransicicones()[al].getDatoTransicion()+" \"];\n")
+                        " [label=\""+ParteAutomata[i].getTransicicones()[al].getDatoTransicion().getNombreEstado()+" \"];\n")
                     arranca.write("}")
             arranca.close()
-            "C:\\Users\\cutzal\\Desktop\\"+nombre+".dot"
-            subprocess.call("dot C:\\Users\\cutzal\\Desktop\\"+nombre+".dot -Tpng -o C:\\Users\\cutzal\\Desktop\\"+nombre+".png")
-            eso="C:\\Users\\cutzal\\Desktop\\"+nombre+".png"
+            #"C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot"
+            subprocess.call("dot C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot -Tpng -o C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".png")
+            eso="C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".png"
             gen.drawImage(eso,190,530,300,100)
-            
+
     gen.save()
 
 def GenerarPDF_Gramatica():
