@@ -648,8 +648,8 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
     Npdf= nombre+".pdf"
     gen=canvas.Canvas(Npdf)
     gen.setFontSize(16)
-    gen.drawString(225,775,nombre)
-    gen.drawString(75,730, "Automata")
+    #gen.drawString(225,775,nombre)
+    #gen.drawString(75,730, "Automata")
     gen.setFont('Helvetica', 11)
     for eso in range(len(ParteAutomata)):
         if nombre==ParteAutomata[eso].getNombreAFD():
@@ -685,7 +685,7 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
             gen.drawString(75,545,eT)
             #grafica
             #self.generarDot(nome)
-            arranca = open("C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot", 'w')
+            arranca = open('C:\\Users\\cutzal\\Desktop\\'+nombre+'.dot', 'w',encoding='utf-8')
             arranca.write("digraph A  {\n")
             arranca.write("rankdir = LR;\n")
             arranca.write("EMPTY [style=invis]\n")
@@ -704,15 +704,14 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
                             Inicial=ParteAutomata[i].getEstados()[start].getNombreEstado()
                     arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
                     for al in range(len(ParteAutomata[i].getTransicicones())):
-                        arranca.write(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado()+
-                        " -> "+ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion()+
-                        " [label=\""+ParteAutomata[i].getTransicicones()[al].getDatoTransicion().getNombreEstado()+" \"];\n")
+                        arranca.write(str(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado())+" -> "+str(ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion().getNombreEstado())+" [label=\""+str(ParteAutomata[i].getTransicicones()[al].getDatoTransicion())+" \"];\n")
                     arranca.write("}")
             arranca.close()
-            #"C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot"
-            subprocess.call("dot C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".dot -Tpng -o C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".png")
-            eso="C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1\\"+nombre+".png"
-            gen.drawImage(eso,190,530,300,100)
+            #os.system('dot -Tpng archivo.dot -o Grafica.png')
+            os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
+            siiiiii=nombre+".png"
+            gen.drawImage(siiiiii,75,400,300,100)
+            
 
     gen.save()
 
