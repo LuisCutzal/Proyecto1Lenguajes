@@ -1,0 +1,18 @@
+digraph SI  {
+rankdir = LR;
+EMPTY [style=invis]
+EMPTY [shape=point]
+node [shape=circle,style=filled] A
+node [shape=circle,style=filled] B
+node [shape=doublecircle,style=filled] C
+node [shape=circle,style=filled] D
+EMPTY -> A [label="  "];
+A -> B [label="1 "];
+A -> C [label="0 "];
+B -> A [label="1 "];
+B -> D [label="0 "];
+C -> D [label="1 "];
+D -> C [label="1 "];
+C -> A [label="0 "];
+D -> B [label="0 "];
+}

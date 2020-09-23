@@ -684,9 +684,8 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
             gen.drawString(75,565, "Transiciones: ")
             gen.drawString(75,545,eT)
             #grafica
-            #self.generarDot(nome)
             arranca = open('C:\\Users\\cutzal\\Desktop\\'+nombre+'.dot', 'w',encoding='utf-8')
-            arranca.write("digraph A  {\n")
+            arranca.write("digraph Si  {\n")
             arranca.write("rankdir = LR;\n")
             arranca.write("EMPTY [style=invis]\n")
             arranca.write("EMPTY [shape=point]\n")
@@ -707,7 +706,6 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
                         arranca.write(str(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado())+" -> "+str(ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion().getNombreEstado())+" [label=\""+str(ParteAutomata[i].getTransicicones()[al].getDatoTransicion())+" \"];\n")
                     arranca.write("}")
             arranca.close()
-            #os.system('dot -Tpng archivo.dot -o Grafica.png')
             os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
             siiiiii=nombre+".png"
             gen.drawImage(siiiiii,75,400,300,100)
@@ -723,8 +721,8 @@ def GenerarPDF_Gramatica():
     Npdf= nombre+".pdf"
     gen=canvas.Canvas(Npdf)
     gen.setFontSize(16)
-    gen.drawString(225,775,nombre)
-    gen.drawString(75,730, "Gramatica")
+    #gen.drawString(225,775,nombre)
+    #gen.drawString(75,730, "Gramatica")
     gen.setFont('Helvetica', 11)
     for eso in range(len(ParteGramatica)):
         if nombre==ParteGramatica[eso].getNombreGramatica():
@@ -751,11 +749,43 @@ def GenerarPDF_Gramatica():
                 eT+=str(ParteGramatica[eso].getProduccionesG()[T].getTerminalInicial().getNombreNoTerminal()+" > "
                 +ParteGramatica[eso].getProduccionesG()[T].getAlfabetoProducciones()+" "
                 +ParteGramatica[eso].getProduccionesG()[T].getTerminalSiguiente().getNombreNoTerminal()+"\n")
-            gen.drawString(75,565, "Producciones: ")
-            gen.drawString(75,545," "+eT)
+            gen.drawString(75,595, "Producciones: ")
+            gen.drawString(75,565," "+eT)
             eT2=""
             for busqueda in range(len(ParteGramatica[eso].getNoTerminales())):
                 if ParteGramatica[eso].getNoTerminales()[busqueda].getAceptacion()==True:
                     eT2+=(ParteGramatica[eso].getNoTerminales()[busqueda].getNombreNoTerminal()+">$"+"\n")
-            gen.drawString(75,525, " " +eT2)
+            gen.drawString(75,545, " " +eT2)
+            #grafica
+            arranca = open('C:\\Users\\cutzal\\Desktop\\'+nombre+'.dot', 'w',encoding='utf-8')
+            arranca.write("digraph SI  {\n")
+            arranca.write("rankdir = LR;\n")
+            arranca.write("EMPTY [style=invis]\n")
+            arranca.write("EMPTY [shape=point]\n")
+            for i in range(len(ParteGramatica)):
+                if nombre==ParteGramatica[i].getNombreGramatica():
+                    for a in range(len(ParteGramatica[i].getNoTerminales())):
+                        if ParteGramatica[i].getNoTerminales()[a].getAceptacion()==True:
+                            arranca.write("node [shape=doublecircle,style=filled] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
+                        else:
+                            arranca.write("node [shape=circle,style=filled] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
+                    #transiciones
+                    Inicial=""
+                    for start in range(len(ParteGramatica[i].getNoTerminales())):
+                        if ParteGramatica[i].getNoTerminales()[start].getEstadoInicial()==True:
+                            Inicial=ParteGramatica[i].getNoTerminales()[start].getNombreNoTerminal()
+                    arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
+                    for al in range(len(ParteGramatica[i].getProduccionesG())):
+                        arranca.write(str(ParteGramatica[i].getProduccionesG()[al].getTerminalInicial().getNombreNoTerminal())+" -> "+str(ParteGramatica[i].getProduccionesG()[al].getTerminalSiguiente().getNombreNoTerminal())+" [label=\""+str(ParteGramatica[i].getProduccionesG()[al].getAlfabetoProducciones())+" \"];\n")
+                    arranca.write("}")
+            arranca.close()
+            #os.system('dot -Tpng archivo.dot -o Grafica.png')
+            os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
+            siiiiii=nombre+".png"
+            gen.drawImage(siiiiii,75,400,300,100)
+
+
+
+
+
     gen.save()

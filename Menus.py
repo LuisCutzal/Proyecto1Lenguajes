@@ -63,11 +63,13 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             print("espere...")
             time.sleep(1)
             Funciones.AgregarAFD()
+            #ya
         elif opcionSub == "2":
             print("Eligio Cargar Archivo")
             print("espere...")
             time.sleep(1)
             Cargas_masivas.CargarArchivoAFD()
+            #ya
         elif opcionSub=="3":
             print("Eligio Evaluar Cadena")
             print("espere...")
@@ -75,14 +77,17 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             Funciones.EvaluarCadenaAFD()
         elif opcionSub=="4":
             Funciones.GuardarAFDenARchivo()
+            #ya
         elif opcionSub == "5":
             #input("Guardar Gramática")
             Funciones.GenerarPDF_AFD()
+            #ya
         elif opcionSub =="6":
             input("Generar Gramatica")
         elif opcionSub == "7":
             print("regresando...")
             time.sleep(1)
+            #ya
             break    
         else:
             print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
@@ -105,19 +110,24 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         opcionSub = input("Escriba uno de los 6 números a  la que quiere ingresar: ")
         if opcionSub== "1":
             Funciones.AgregarGramatica()
+            #ya
         elif opcionSub == "2":
             Cargas_masivas.CargarArchivoGramatica()
+            #ya
         elif opcionSub=="3":
             input("Evaluar")
         elif opcionSub=="4":
             input("Eliminar")
         elif opcionSub == "5":
             Funciones.GuardarGramaticaEnArchivo()
+            #ya
         elif opcionSub =="6":
             Funciones.GenerarPDF_Gramatica()
+            #ya
         elif opcionSub == "7":
             print("regresando...")
             time.sleep(1)
+            #ya
             break    
         else:
             print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
