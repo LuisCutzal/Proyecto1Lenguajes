@@ -132,10 +132,10 @@ def AgregarAFD(): #agregar automatas manualmente
                                 """print("estado inicial es: " + Einicial)
                                 input("primero")"""
                             ParteAutomata[buscoInicio].getEstados()[ahora].setEstadoInicio(True)
-                            print("estado es: " + Iguales)
-                            input("segundo")
-                        else:
-                            input("Ingreso un Estado que no Existe: ")
+                            #print("estado es: " + Iguales)
+                            #input("segundo")
+                        #else:
+                            #input("Ingreso un Estado que no Existe: ")
                             #tengo que retornar 
                 else:
                     input("El AFD no cuenta con un estado para volverlo estado inicial: ")
@@ -155,8 +155,8 @@ def AgregarAFD(): #agregar automatas manualmente
                                     ParteAutomata[buscoEstado].getEstados()[busco].setEstadoAceptacion(True)
                                     print("el estado de aceptacion es: " + tecleo_ingresoAceptacion)
                                     #input("si")
-                                else:
-                                    input("Ingreso un estado que no existe: ")
+                                #else:
+                                    #input("Ingreso un estado que no existe: ")
                                     #tengo que retornar el ciclo while
                         else:
                             input("El AFD no cuenta con ningun Estado: ")
@@ -181,6 +181,7 @@ def AgregarAFD(): #agregar automatas manualmente
         while Tra:
             Ingrese_transiciones=input("Ingrese Transiciones de la forma: A,0;B: ")
             input("Donde A es el Estado Inicial, 0 es parte del Alfabeto y B es el Estado Final")
+
             condiTra=input("¿Desea agregar otra Transicion?, escriba [Y/N]:")
             if condiTra=="Y":
                 primero=Ingrese_transiciones.split(',')
@@ -196,33 +197,34 @@ def AgregarAFD(): #agregar automatas manualmente
                         gama=0 #contador
                         alcanzo = None
                         finalizo = None
-                        #------------------comienza busqueda del primer No terminal-------------
-                        for first in range(len(ParteAutomata[listo].getEstados())):
-                            if SiPrimero == ParteAutomata[listo].getEstados()[first]:
-                                beta+=1
-                                alcanzo = ParteAutomata[listo].getEstados()[first]
-                                if ParteAutomata[listo].getEstados()[first].getEstadoSiguiente():
-                                    for buscando1 in range(len(ParteAutomata[listo].getEstados()[first].getEstadoSiguiente())):
-                                        if SiPrimero==ParteAutomata[listo].getEstados()[first].getEstadoSiguiente()[buscando1]:
-                                            beta+=1
-                                    if beta==0:
-                                        ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
-                                else:
-                                    ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
-                        #------------------termina busqueda del primer No terminal---------------
                         #------------------comienza busqueda del alfabeto------------
                         for termi in range(len(ParteAutomata[listo].getAlfabeto())):
                             if siAlfabeto==ParteAutomata[listo].getAlfabeto()[termi]:
                                 alfa+=1
                         #------------------termino busqueda del alfabeto--------
+                        #------------------comienza busqueda del primer No terminal-------------
+                        for first in range(len(ParteAutomata[listo].getEstados())):
+                            if SiPrimero == ParteAutomata[listo].getEstados()[first].getNombreEstado():
+                                beta+=1
+                                alcanzo = ParteAutomata[listo].getEstados()[first]
+                                if ParteAutomata[listo].getEstados()[first].getEstadoSiguiente():
+                                    for buscando1 in range(len(ParteAutomata[listo].getEstados()[first].getEstadoSiguiente())):
+                                        if siAlfabeto==ParteAutomata[listo].getEstados()[first].getEstadoSiguiente()[buscando1]:
+                                            gama+=1
+                                    if gama==0:
+                                        ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(siAlfabeto)
+                                else:
+                                    ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(siAlfabeto)
+                        #------------------termina busqueda del primer No terminal---------------
+                        
                         #------------------comineza busqueda del segundo No terminal------------
                         for last in range(len(ParteAutomata[listo].getEstados())):
-                            if Sisegundo == ParteAutomata[listo].getEstados()[last]:
+                            if Sisegundo == ParteAutomata[listo].getEstados()[last].getNombreEstado():
                                 sigma+=1
                                 finalizo = ParteAutomata[listo].getEstados()[last]
                         if alfa!=0 and beta !=0 and sigma!=0:
                             if gama==0:
-                                si = Transiciones(SiPrimero, Sisegundo, siAlfabeto)
+                                si = Transiciones(alcanzo, finalizo, siAlfabeto)
                                 ParteAutomata[listo].getTransicicones().append(si)
                             else:
                                 input("Error, esta ingresando una transicion que ya existe: ")
@@ -242,38 +244,45 @@ def AgregarAFD(): #agregar automatas manualmente
                         gama=0 #contador
                         alcanzo=None
                         finalizo=None
-                        #------------------comienza busqueda del primer No terminal-------------
-                        for first in range(len(ParteAutomata[listo].getEstados())):
-                            if SiPrimero == ParteAutomata[listo].getEstados()[first]:
-                                beta+=1
-                                alcanzo = ParteAutomata[listo].getEstados()[first]
-                                if ParteAutomata[listo].getEstados()[first].getEstadoSiguiente():
-                                    for buscando1 in range(len(ParteAutomata[listo].getEstados()[first].getEstadoSiguiente())):
-                                        if SiPrimero==ParteAutomata[listo].getEstados()[first].getEstadoSiguiente()[buscando1]:
-                                            beta+=1
-                                    if beta==0:
-                                        ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
-                                else:
-                                    ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
-                        #------------------termina busqueda del primer No terminal---------------
                         #------------------comienza busqueda del alfabeto-------------
                         for termi in range(len(ParteAutomata[listo].getAlfabeto())):
                             if siAlfabeto==ParteAutomata[listo].getAlfabeto()[termi]:
                                 alfa+=1
                         #------------------termino busqueda del alfabeto--------
+                        #------------------comienza busqueda del primer No terminal-------------
+                        for first in range(len(ParteAutomata[listo].getEstados())):
+                            if SiPrimero == ParteAutomata[listo].getEstados()[first].getNombreEstado():
+                                beta+=1
+                                alcanzo = ParteAutomata[listo].getEstados()[first]
+                                if ParteAutomata[listo].getEstados()[first].getEstadoSiguiente():
+                                    for buscando1 in range(len(ParteAutomata[listo].getEstados()[first].getEstadoSiguiente())):
+                                        if SiPrimero==ParteAutomata[listo].getEstados()[first].getEstadoSiguiente()[buscando1]:
+                                            gama+=1
+                                    if gama==0:
+                                        ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
+                                else:
+                                    ParteAutomata[listo].getEstados()[first].getEstadoSiguiente().append(SiPrimero)
+                        #------------------termina busqueda del primer No terminal---------------
+                        
                         #------------------comineza busqueda del segundo No terminal------------
                         for last in range(len(ParteAutomata[listo].getEstados())):
-                            if Sisegundo == ParteAutomata[listo].getEstados()[last]:
+                            if Sisegundo == ParteAutomata[listo].getEstados()[last].getNombreEstado():
                                 sigma+=1
                                 finalizo = ParteAutomata[listo].getEstados()[last]
-                        if alfa!=0 and beta !=0 and sigma!=0:
+                        if alfa==0 and beta==0 and sigma==0:
+                            """if gama==0:
+                                si = Transiciones(alcanzo, finalizo, siAlfabeto)
+                                ParteAutomata[listo].getTransicicones().append(si)
+                            else:
+                                input("Error, esta ingresando una transicion que ya existe: ")"""
+                            input("Error, un estado o un terminal que ingresa no existe: ")
+                        else:
+                            #input("Error, un estado o un terminal que ingresa no existe: ")
                             if gama==0:
-                                si = Transiciones(SiPrimero, Sisegundo, siAlfabeto)
+                                si = Transiciones(alcanzo, finalizo, siAlfabeto)
                                 ParteAutomata[listo].getTransicicones().append(si)
                             else:
                                 input("Error, esta ingresando una transicion que ya existe: ")
-                        else:
-                            input("Error, un estado o un terminal que ingresa no existe: ")
                 Tra=False
         #-------------------------termina las transiciones---------------------------
 #-----------finaliza agregar respecto a automatas----------------
@@ -423,17 +432,17 @@ def AgregarGramatica():
                         finalizoG=None
                         #******************comienza busqueda del primer No Terminal***********
                         for firstG in range(len(ParteGramatica[inicio].getNoTerminales())):
-                            if PrimerNoTerminal==ParteGramatica[inicio].getNoTerminales()[firstG]:
+                            if PrimerNoTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getNombreNoTermina():
                                 betaG+=1
                                 alcanzoG = ParteGramatica[inicio].getNoTerminales()[firstG]
                                 if ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente():
                                     for buscando1G in range(len(ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente())):
-                                        if PrimerNoTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
-                                            betaG+=1
-                                    if betaG==0:
-                                        ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(PrimerNoTerminal)
+                                        if SiTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
+                                            gamaG+=1
+                                    if gamaG==0:
+                                        ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
                                 else:
-                                    ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(PrimerNoTerminal)
+                                    ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
                         #******************termina busqueda del primer No Terminal***************
                         #******************comienza busqueda del Terminal************************
                         for TerminalG in range(len(ParteGramatica[inicio].getAlfabeto())):
@@ -442,18 +451,24 @@ def AgregarGramatica():
                         #******************termina busqueda del Terminal************************
                         #*******************comienza busqueda del segundo No Terminal***********
                         for second in range(len(ParteGramatica[inicio].getNoTerminales())):
-                            if SegundoNoTerminal==ParteGramatica[inicio].getNoTerminales()[second]:
+                            if SegundoNoTerminal==ParteGramatica[inicio].getNoTerminales()[second].getNombreNoTermina():
                                 sigmaG+=1
                                 finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
                         #******************finaliza busqueda del segundo No Terminal************
-                        if alfaG!=0 and betaG!=0 and sigmaG!=0:
+                        if alfaG==0 and betaG==0 and sigmaG==0:
+                            """if gamaG==0:
+                                siG=Producciones(alcanzoG,SiTerminal,finalizoG)
+                                ParteGramatica[inicio].getProduccionesG().append(siG)
+                            else:
+                                input("Error, esta ingresando una produccion que ya existe: ")"""
+                            input("Error, un No Terminal o un Terminal que ingresa no existe: ")
+                        else:
+                            #input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                             if gamaG==0:
-                                siG=Producciones(PrimerNoTerminal,SiTerminal,SegundoNoTerminal)
+                                siG=Producciones(alcanzoG,SiTerminal,finalizoG)
                                 ParteGramatica[inicio].getProduccionesG().append(siG)
                             else:
                                 input("Error, esta ingresando una produccion que ya existe: ")
-                        else:
-                            input("Error, un No Terminal o un Terminal que ingresa no existe: ")
             else:
                 P_primero=ingreseProduccion.split('>')
                 P_segundo=P_primero[1].split(' ')
@@ -475,12 +490,12 @@ def AgregarGramatica():
                                 alcanzoG = ParteGramatica[inicio].getNoTerminales()[firstG]
                                 if ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente():
                                     for buscando1G in range(len(ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente())):
-                                        if PrimerNoTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
-                                            betaG+=1
-                                    if betaG==0:
-                                        ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(PrimerNoTerminal)
+                                        if SiTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
+                                            gamaG+=1
+                                    if gamaG==0:
+                                        ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
                                 else:
-                                    ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(PrimerNoTerminal)
+                                    ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
                         #******************termina busqueda del primer No Terminal***************
                         #******************comienza busqueda del Terminal************************
                         for TerminalG in range(len(ParteGramatica[inicio].getAlfabeto())):
@@ -492,14 +507,20 @@ def AgregarGramatica():
                             if SegundoNoTerminal==ParteGramatica[inicio].getNoTerminales()[second]:
                                 sigmaG+=1
                                 finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
-                        if alfaG!=0 and betaG!=0 and sigmaG!=0:
+                        if alfaG==0 and betaG==0 and sigmaG==0:
+                            """if gamaG==0:
+                                siG=Producciones(alcanzoG,SiTerminal,finalizoG)
+                                ParteGramatica[inicio].getProduccionesG().append(siG)
+                            else:
+                                input("Error, esta ingresando una produccion que ya existe: ")"""
+                            input("Error, un No Terminal o un Terminal que ingresa no existe: ")
+                        else:
+                            #input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                             if gamaG==0:
-                                siG=Producciones(PrimerNoTerminal,SiTerminal,SegundoNoTerminal)
+                                siG=Producciones(alcanzoG,SiTerminal,finalizoG)
                                 ParteGramatica[inicio].getProduccionesG().append(siG)
                             else:
                                 input("Error, esta ingresando una produccion que ya existe: ")
-                        else:
-                            input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                 Pro=False
                 
         #**********************finaliza las producciones de la gramatica*************************

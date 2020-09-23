@@ -105,7 +105,7 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         if opcionSub== "1":
             Funciones.AgregarGramatica()
         elif opcionSub == "2":
-            input("Cargar")
+            Cargas_masivas.CargarArchivoGramatica()
         elif opcionSub=="3":
             input("Evaluar")
         elif opcionSub=="4":
