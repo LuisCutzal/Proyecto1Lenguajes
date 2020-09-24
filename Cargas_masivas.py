@@ -78,13 +78,13 @@ def CargarArchivoAFD():
                             for profundo2 in range(len(ParteAutomata[buscoAlfabeto].getAlfabeto())):
                                 if str(alfabetoleido[cuerpo]) == ParteAutomata[buscoAlfabeto].getAlfabeto()[profundo2]:
                                     comienzaA+=1
-                                if comienzaA==0:
-                                    ParteAutomata[buscoAlfabeto].getAlfabeto().append(str(alfabetoleido))
-                                    input("El alfabeto es: " + str(alfabetoleido))
-                                else:
-                                    input("El caracter ingresado ya existe, no se puede agregar: ")
-                            else:
+                            if comienzaA==0:
                                 ParteAutomata[buscoAlfabeto].getAlfabeto().append(str(alfabetoleido))
+                                #input("El alfabeto es: " + str(alfabetoleido))
+                            else:
+                                input("El caracter ingresado ya existe, no se puede agregar: ")
+                        else:
+                            ParteAutomata[buscoAlfabeto].getAlfabeto().append(str(alfabetoleido))
             #estado inicial
             inicioleido= str(automatacarga[agre][3])
             for buscoInicio in range(len(ParteAutomata)):
@@ -231,18 +231,18 @@ def CargarArchivoGramatica():
             Terminalleido=gramaticacarga[agreG][2].split(',')
             for cuerpo in range(len(Terminalleido)):
                 for busca0 in range(len(ParteGramatica)):
-                    if NombreG==ParteGramatica[busca0].getNombreGramatica():
+                    if str(gramaticacarga[agreG][0])==ParteGramatica[busca0].getNombreGramatica():
                         if ParteGramatica[busca0].getNombreGramatica():
                             cominezaT=0
                             for capa1 in range(len(ParteGramatica[busca0].getAlfabeto())):
                                 if str(Terminalleido[cuerpo]) == ParteGramatica[busca0].getAlfabeto()[capa1]:
                                     cominezaT+=1
                             if cominezaT==0:
-                                ParteGramatica[busca0].getAlfabeto().append(Terminalleido)
+                                ParteGramatica[busca0].getAlfabeto().append(str(Terminalleido))
                             else:
                                 input("El Terminal ingresado ya existe, no se puede agregar: ")
                         else:
-                             ParteGramatica[busca0].getAlfabeto().append(Terminalleido)
+                            ParteGramatica[busca0].getAlfabeto().append(str(Terminalleido))
             #terminal inicial
             NoTerminalInicial=str(gramaticacarga[agreG][3])
             for vamos in range(len(ParteGramatica)):
@@ -267,9 +267,9 @@ def CargarArchivoGramatica():
                         PrimerNoTerminal=P_primero[0].upper()
                         SegundoNoTerminal=P_segundo[1].upper()
                         SiTerminal=str(P_segundo[0].lower())
-                        input("No Terminal Inicial: " + str(PrimerNoTerminal))
-                        input("Terminal: " + str(SiTerminal))
-                        input("No Terminal Siguiente: " + str(SegundoNoTerminal))
+                        #input("No Terminal Inicial: " + str(PrimerNoTerminal))
+                        #input("Terminal: " + str(SiTerminal))
+                        #input("No Terminal Siguiente: " + str(SegundoNoTerminal))
                         for inicio in range(len(ParteGramatica)):
                             if str(gramaticacarga[agreG][0])==ParteGramatica[inicio].getNombreGramatica():
                                 alfaG=0

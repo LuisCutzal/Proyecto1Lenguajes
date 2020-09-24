@@ -6,7 +6,7 @@ import sys
 #from io import open 
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
-#import subprocess
+import subprocess
 global ParteAutomata
 ParteAutomata=list()
 #ParteAutomata.append(Automatas)
@@ -548,7 +548,7 @@ def AgregarGramatica():
         #**********************finaliza las producciones de la gramatica*************************
 #************finaliza agregar respecto a Gramaticas**************
 
-
+#-------------Guardar AFD en Archivo .afd------------------------------
 def GuardarAFDenARchivo():
     print("Automatas")
     for todos in range(len(ParteAutomata)):
@@ -556,27 +556,27 @@ def GuardarAFDenARchivo():
     guardar=str(input("Ingrese el nombre del AFD que desea Guardar: "))
     comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
     txt = open(comienza+"\\"+guardar+".afd", 'w')
-    escribir_estados=None
+    escribir_estados=""
     escribir_alfabeto=""
-    escribir_EInicial=None
+    escribir_EInicial=""
     escribir_EAceptacion=""
     for bus in range(len(ParteAutomata)):
         if guardar==ParteAutomata[bus].getNombreAFD():
             txt.writelines(ParteAutomata[bus].getNombreAFD()+"\n")
             for busEstados in range(len(ParteAutomata[bus].getEstados())):
-                escribir_estados+=ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()+","
-                """if busEstados>=1:
+                #escribir_estados+=ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()+","
+                if busEstados>=1:
                     escribir_estados+="," +ParteAutomata[bus].getEstados()[busEstados].getNombreEstado() 
                 else:
-                    escribir_estados= ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()"""
+                    escribir_estados= ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()
             txt.writelines("Estados: "+ escribir_estados+"\n")
             #alfabeto
             for busAlfa in range(len(ParteAutomata[bus].getAlfabeto())):
-                escribir_alfabeto+= ParteAutomata[bus].getAlfabeto()[busAlfa]+"," 
-                """if busAlfa>=1:
+                #escribir_alfabeto+= ParteAutomata[bus].getAlfabeto()[busAlfa]+"," 
+                if busAlfa>=1:
                     escribir_alfabeto+=","+ ParteAutomata[bus].getAlfabeto()[busAlfa]
                 else:
-                    escribir_alfabeto=ParteAutomata[bus].getAlfabeto()[busAlfa]"""
+                    escribir_alfabeto=ParteAutomata[bus].getAlfabeto()[busAlfa]
             txt.writelines("Alfabeto: " + escribir_alfabeto+ "\n")
             #estado inicial
             for busEInicial in range(len(ParteAutomata[bus].getEstados())):
@@ -607,9 +607,9 @@ def GuardarGramaticaEnArchivo():
     guardar=str(input("Ingrese el nombre de la Gramatica que desea Guardar: "))
     comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
     txt = open(comienza+"\\"+guardar+".gre", 'w')
-    escribir_NoTerminales=None
+    escribir_NoTerminales=""
     escribir_terminales=""
-    escribir_NoTerminalinicial=None
+    escribir_NoTerminalinicial=""
     for bus in range(len(ParteGramatica)):
         if guardar==ParteGramatica[bus].getNombreGramatica():
             txt.writelines(ParteGramatica[bus].getNombreGramatica()+"\n")
@@ -637,9 +637,9 @@ def GuardarGramaticaEnArchivo():
                 txt.writelines(ParteGramatica[bus].getProduccionesG()[busProducciones].getTerminalInicial().getNombreNoTerminal()+
                 ">"+ParteGramatica[bus].getProduccionesG()[busProducciones].getAlfabetoProducciones()+
                 " "+ParteGramatica[bus].getProduccionesG()[busProducciones].getTerminalSiguiente().getNombreNoTerminal()+"\n")
-            for busqueda in range(len(ParteGramatica[bus].getProduccionesG())):
+            for busqueda in range(len(ParteGramatica[bus].getNoTerminales())):
                 if ParteGramatica[bus].getNoTerminales()[busqueda].getAceptacion()==True:
-                    txt.writelines(ParteGramatica[bus].getNoTerminales()[busqueda].getNombreNoTerminal()+">$")
+                    txt.writelines(ParteGramatica[bus].getNoTerminales()[busqueda].getNombreNoTerminal()+">$"+"\n")
             txt.writelines("%")
     txt.close()
 
@@ -658,32 +658,108 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
         if nombre==ParteAutomata[eso].getNombreAFD():
             gen.drawString(75,715,"Nombre: "+ParteAutomata[eso].getNombreAFD())
             #estados
-            e=None
+            e=""
             for est in range(len(ParteAutomata[eso].getEstados())):
-                e+=ParteAutomata[eso].getEstados()[est].getNombreEstado()+", "
-            gen.drawString(75,685,"Estados:"+e)
+                e+=ParteAutomata[eso].getEstados()[est].getNombreEstado()+","
+            gen.drawString(75,685,"Estados: "+e)
             #alfabeto
-            a=None
+            a=""
             for lengua in range(len(ParteAutomata[eso].getAlfabeto())):
-                a+=ParteAutomata[eso].getAlfabeto()[lengua]+","
-            gen.drawString(75,700,"Alfabeto:"+a)
+                a+=","+ParteAutomata[eso].getAlfabeto()[lengua]
+            gen.drawString(75,655,"Alfabeto: "+a)
             #estado inicial
-            eI=None
+            eI=""
             for estI in range(len(ParteAutomata[eso].getEstados())):
                 if ParteAutomata[eso].getEstados()[estI].getEstadoInicio()==True:
                     eI=ParteAutomata[eso].getEstados()[estI].getNombreEstado()
-            gen.drawString(75,685,"Estado inicial: "+eI)
+            gen.drawString(75,625,"Estado inicial: "+eI)
             #Estados aceptacion
             eA=""
             for enter in range(len(ParteAutomata[eso].getEstados())):
                 if ParteAutomata[eso].getEstados()[enter].getEstadoAceptacion()==True:
                     eA+= ParteAutomata[eso].getEstados()[enter].getNombreEstado()
-            gen.drawString(75,670,"Estado inicial: "+eI)
+            gen.drawString(75,595,"Estado Aceptacion: "+eA)
+            eT=""
+            for T in range(len(ParteAutomata[eso].getTransicicones())):
+                eT+=(ParteAutomata[eso].getTransicicones()[T].getEstadoInicialTransicion().getNombreEstado()+","
+                +ParteAutomata[eso].getTransicicones()[T].getDatoTransicion()+";"
+                +ParteAutomata[eso].getTransicicones()[T].getEstadoFinalTransicion().getNombreEstado()+"\n")
+            gen.drawString(75,565, "Transiciones: ")
+            gen.drawString(75,545,eT)
             #grafica
+            #self.generarDot(nome)
+            arranca = open("C:\\Users\\cutzal\\Desktop\\"+nombre+".dot", 'w')
+            arranca.write("digraph A  {\n")
+            arranca.write("rankdir = LR;\n")
+            arranca.write("EMPTY [style=invis]\n")
+            arranca.write("EMPTY [shape=point]\n")
+            for i in range(len(ParteAutomata)):
+                if nombre==ParteAutomata[i].getNombreAFD():
+                    for a in range(len(ParteAutomata[i].getEstados())):
+                        if ParteAutomata[i].getEstados()[a].getEstadoAceptacion()==True:
+                            arranca.write("node [shape=doublecircle,style=filled] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
+                        else:
+                            arranca.write("node [shape=circle,style=filled] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
+                    #transiciones
+                    Inicial=""
+                    for start in range(len(ParteAutomata[i].getEstados())):
+                        if ParteAutomata[i].getEstados()[start].getEstadoInicio()==True:
+                            Inicial=ParteAutomata[i].getEstados()[start].getNombreEstado()
+                    arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
+                    for al in range(len(ParteAutomata[i].getTransicicones())):
+                        arranca.write(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion()+
+                        " -> "+ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion()+
+                        " [label=\""+ParteAutomata[i].getTransicicones()[al].getDatoTransicion()+" \"];\n")
+                    arranca.write("}")
+            arranca.close()
+            "C:\\Users\\cutzal\\Desktop\\"+nombre+".dot"
+            subprocess.call("dot C:\\Users\\cutzal\\Desktop\\"+nombre+".dot -Tpng -o C:\\Users\\cutzal\\Desktop\\"+nombre+".png")
+            eso="C:\\Users\\cutzal\\Desktop\\"+nombre+".png"
+            gen.drawImage(eso,190,530,300,100)
+            
+    gen.save()
 
-
-
-
-
-
+def GenerarPDF_Gramatica():
+    print("Gramaticas")
+    for todos in range(len(ParteGramatica)):
+        print("Nombre del AFD: " + ParteGramatica[todos].getNombreGramatica())
+    nombre=str(input("ingrese el Nombre del la Gramatica que desea Crear su PDF: "))
+    Npdf= nombre+".pdf"
+    gen=canvas.Canvas(Npdf)
+    gen.setFontSize(16)
+    gen.drawString(225,775,nombre)
+    gen.drawString(75,730, "Gramatica")
+    gen.setFont('Helvetica', 11)
+    for eso in range(len(ParteGramatica)):
+        if nombre==ParteGramatica[eso].getNombreGramatica():
+            gen.drawString(75,715,"Nombre: "+ ParteGramatica[eso].getNombreGramatica())
+            #estados (NoTerminales)
+            e=""
+            for est in range(len(ParteGramatica[eso].getNoTerminales())):
+                e+=ParteGramatica[eso].getNoTerminales()[est].getNombreNoTerminal()+","
+            gen.drawString(75,685,"No Terminales: "+e)
+            #alfabeto (terminales)
+            a=""
+            for lengua in range(len(ParteGramatica[eso].getAlfabeto())):
+                a+=","+ParteGramatica[eso].getAlfabeto()[lengua]
+            gen.drawString(75,655,"Terminales: "+a)
+            #estado inicial (No Terminal Inicial)
+            eI=""
+            for estI in range(len(ParteGramatica[eso].getNoTerminales())):
+                if ParteGramatica[eso].getNoTerminales()[estI].getEstadoInicial()==True:
+                    eI=ParteGramatica[eso].getNoTerminales()[estI].getNombreNoTerminal()
+            gen.drawString(75,625,"No Terminal Inicial: "+eI)
+            #producciones
+            eT=""
+            for T in range(len(ParteGramatica[eso].getProduccionesG())):
+                eT+=str(ParteGramatica[eso].getProduccionesG()[T].getTerminalInicial().getNombreNoTerminal()+" > "
+                +ParteGramatica[eso].getProduccionesG()[T].getAlfabetoProducciones()+" "
+                +ParteGramatica[eso].getProduccionesG()[T].getTerminalSiguiente().getNombreNoTerminal()+"\n")
+            gen.drawString(75,565, "Producciones: ")
+            gen.drawString(75,545," "+eT)
+            eT2=""
+            for busqueda in range(len(ParteGramatica[eso].getNoTerminales())):
+                if ParteGramatica[eso].getNoTerminales()[busqueda].getAceptacion()==True:
+                    eT2+=(ParteGramatica[eso].getNoTerminales()[busqueda].getNombreNoTerminal()+">$"+"\n")
+            gen.drawString(75,525, " " +eT2)
     gen.save()

@@ -76,7 +76,8 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
         elif opcionSub=="4":
             Funciones.GuardarAFDenARchivo()
         elif opcionSub == "5":
-            input("Guardar Gramática")
+            #input("Guardar Gramática")
+            Funciones.GenerarPDF_AFD()
         elif opcionSub =="6":
             input("Generar Gramatica")
         elif opcionSub == "7":
@@ -113,7 +114,7 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         elif opcionSub == "5":
             Funciones.GuardarGramaticaEnArchivo()
         elif opcionSub =="6":
-            input("Generar Reporte")
+            Funciones.GenerarPDF_Gramatica()
         elif opcionSub == "7":
             print("regresando...")
             time.sleep(1)
