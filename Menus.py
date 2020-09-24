@@ -53,7 +53,7 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
         print ("\t2 - Cargar Archivo: ")
         print ("\t3 - Evaluar Cadena: ")
         print ("\t4 - Guardar AFD en archivo: ")
-        print ("\t5 - Guardar Gramática en archivo: ")
+        print ("\t5 - Generar Reporte AFD: ")
         print ("\t6 - Generar Gramática Regular: ")
         print ("\t7 - Regresar:")
         print("*****************************")
@@ -72,9 +72,9 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             print("Eligio Evaluar Cadena")
             print("espere...")
             time.sleep(1)
-            Funciones.EvaluarCadena()
+            Funciones.EvaluarCadenaAFD()
         elif opcionSub=="4":
-            input("Guardar AFD")
+            Funciones.GuardarAFDenARchivo()
         elif opcionSub == "5":
             input("Guardar Gramática")
         elif opcionSub =="6":
@@ -111,7 +111,7 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         elif opcionSub=="4":
             input("Eliminar")
         elif opcionSub == "5":
-            input("Guardar AFD")
+            Funciones.GuardarGramaticaEnArchivo()
         elif opcionSub =="6":
             input("Generar Reporte")
         elif opcionSub == "7":

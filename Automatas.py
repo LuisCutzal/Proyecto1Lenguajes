@@ -76,19 +76,18 @@ class Estados(object):
 
 
 class Transiciones(object): #para todas las transiciones de un afd
-    def __init__(self, inicioTrans, finTrans, datoTrans):
+    def __init__(self, inicioTrans, datoTrans,finTrans ):
         self.estadoInicial=inicioTrans
-        self.estadoFinal=finTrans
         self.entradato=datoTrans
+        self.estadoFinal=finTrans
+        
 #---------------get--------------------
     def getEstadoInicialTransicion(self):
         return self.estadoInicial
-    
-    def getEstadoFinalTransicion(self):
-        return self.estadoFinal
-    
     def getDatoTransicion(self):
         return self.entradato
+    def getEstadoFinalTransicion(self):
+        return self.estadoFinal
 
 #--------------set-----------------------
     def setEstaodInicialTransicion(self, NuevoEstadoInicioTransicion):

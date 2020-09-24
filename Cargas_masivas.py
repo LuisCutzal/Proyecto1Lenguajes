@@ -53,10 +53,11 @@ def CargarArchivoAFD():
             for forma in range(len(estadoleido)):
                 creacionEstado= Estados(estadoleido[forma])
                 for buscoEstado in range(len(ParteAutomata)):
-                    if str(automatacarga[agre][0]) == ParteAutomata[buscoEstado].getNombreAFD():
+                    if Nombre == ParteAutomata[buscoEstado].getNombreAFD():
                         if ParteAutomata[buscoEstado].getEstados():
+                            comienza=0
                             for profundo in range(len(ParteAutomata[buscoEstado].getEstados())):
-                                if str(estadoleido[forma]) == ParteAutomata[buscoEstado].getEstados()[profundo].getNombreEstado():
+                                if estadoleido[forma] == ParteAutomata[buscoEstado].getEstados()[profundo].getNombreEstado():
                                     comienza+=1
                             if comienza==0:
                                 ParteAutomata[buscoEstado].getEstados().append(creacionEstado)
@@ -78,12 +79,12 @@ def CargarArchivoAFD():
                                 if str(alfabetoleido[cuerpo]) == ParteAutomata[buscoAlfabeto].getAlfabeto()[profundo2]:
                                     comienzaA+=1
                                 if comienzaA==0:
-                                    ParteAutomata[buscoAlfabeto].getAlfabeto().append(alfabetoleido)
+                                    ParteAutomata[buscoAlfabeto].getAlfabeto().append(str(alfabetoleido))
                                     input("El alfabeto es: " + str(alfabetoleido))
                                 else:
                                     input("El caracter ingresado ya existe, no se puede agregar: ")
                             else:
-                                ParteAutomata[buscoAlfabeto].getAlfabeto().append(alfabetoleido)
+                                ParteAutomata[buscoAlfabeto].getAlfabeto().append(str(alfabetoleido))
             #estado inicial
             inicioleido= str(automatacarga[agre][3])
             for buscoInicio in range(len(ParteAutomata)):
@@ -110,9 +111,9 @@ def CargarArchivoAFD():
                     if str(automatacarga[agre][0])==ParteAutomata[buscoEstado].getNombreAFD():
                         if ParteAutomata[buscoEstado].getEstados():
                             for busco in range(len(ParteAutomata[buscoEstado].getEstados())):
-                                if ParteAutomata[buscoEstado].getEstados()[busco].getNombreEstado()==str(aceptacionleido[ace]):
+                                if ParteAutomata[buscoEstado].getEstados()[busco].getNombreEstado()==aceptacionleido[ace]:
                                     ParteAutomata[buscoEstado].getEstados()[busco].setEstadoAceptacion(True)
-                                    input("El estado de Aceptacion es: "+str(aceptacionleido))
+                                    input("El estado de Aceptacion es: "+ aceptacionleido[ace])
                                 #else:
                                     #input("Ingreso un estado que no existe, esto es de estado de aceptacion: ")
                         else:
@@ -122,12 +123,12 @@ def CargarArchivoAFD():
                 if termino>=5:
                     primero=automatacarga[agre][termino].split(',')
                     segundo=primero[1].split(';')
-                    SiPrimero=str(primero[0].upper())
-                    Sisegundo=str(segundo[1].upper())
+                    SiPrimero=(primero[0].upper())
+                    Sisegundo=(segundo[1].upper())
                     siAlfabeto=str(segundo[0].lower())
-                    input("Estado primero:"+ str(SiPrimero))
-                    input("Estado segundo:"+ str(Sisegundo))
-                    input("alfabeto:"+ str(siAlfabeto))
+                    #input("Estado primero:"+ str(SiPrimero))
+                    #input("Estado segundo:"+ str(Sisegundo))
+                    #input("alfabeto:"+ str(siAlfabeto))
                     for listo in range(len(ParteAutomata)):
                         if str(automatacarga[agre][0]) == ParteAutomata[listo].getNombreAFD():
                             alfa=0
@@ -170,15 +171,12 @@ def CargarArchivoAFD():
                             else:
                                 #input("Error, un estado o un terminal que ingresa no existe: ")
                                 if gama==0:
-                                    si = Transiciones((alcanzo), (finalizo), (siAlfabeto))
+                                    si = Transiciones((alcanzo),(siAlfabeto), (finalizo) )
                                     ParteAutomata[listo].getTransicicones().append(si)
                                 else:
                                     input("Error, esta ingresando una transicion que ya existe: ")
             input("Archivo cargado: ")                              
 #finaliza carga masiva para el AFD
-
-
-
 
 #inicia carga masiva para la Gamatica
 def CargarArchivoGramatica():
@@ -218,6 +216,7 @@ def CargarArchivoGramatica():
                 for buscoNo in range(len(ParteGramatica)):
                     if NombreG == ParteGramatica[buscoNo].getNombreGramatica():
                         if ParteGramatica[buscoNo].getNoTerminales():
+                            comienzaG=0
                             for profundoG in range(len(ParteGramatica[buscoNo].getNoTerminales())):
                                 if str(NoTerminalleido[formaG]) == ParteGramatica[buscoNo].getNoTerminales()[profundoG].getNombreNoTerminal():
                                     comienzaG+=1
@@ -259,55 +258,64 @@ def CargarArchivoGramatica():
                                 input("Ingreso un No Terminal que no Existe: ")"""
                     else:
                         input("La Gramatica no cuenta con un No Terminal para volverlo No Terminal inicial: ")
+            #producciones
             for alfin in range(len(gramaticacarga[agreG])):
                 if alfin>=4:
                     P_primero=gramaticacarga[agreG][alfin].split('>')
                     P_segundo=P_primero[1].split(' ')
-                    PrimerNoTerminal=P_primero[0].upper()
-                    SegundoNoTerminal=P_segundo[1].upper()
-                    SiTerminal=str(P_segundo[0].lower())
-                    input("No Terminal Inicial: " + str(PrimerNoTerminal))
-                    input("Terminal: " + str(SiTerminal))
-                    input("No Terminal Siguiente: " + str(SegundoNoTerminal))
-                    for inicio in range(len(ParteGramatica)):
-                        if NombreG==ParteGramatica[inicio].getNombreGramatica():
-                            alfaG=0
-                            betaG=0
-                            sigmaG=0
-                            gamaG=0
-                            alcanzoG= None
-                            finalizoG= None
-                            for firstG in range(len(ParteGramatica[inicio].getNoTerminales())):
-                                if str(PrimerNoTerminal)==ParteGramatica[inicio].getNoTerminales()[firstG].getNombreNoTerminal():
-                                    betaG+=1
-                                    alcanzoG = ParteGramatica[inicio].getNoTerminales()[firstG]
-                                    if ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente():
-                                        for buscando1G in range(len(ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente())):
-                                            if SiTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
-                                                gamaG+=1
-                                        if gamaG==0:
+                    if len(P_segundo)>1:
+                        PrimerNoTerminal=P_primero[0].upper()
+                        SegundoNoTerminal=P_segundo[1].upper()
+                        SiTerminal=str(P_segundo[0].lower())
+                        input("No Terminal Inicial: " + str(PrimerNoTerminal))
+                        input("Terminal: " + str(SiTerminal))
+                        input("No Terminal Siguiente: " + str(SegundoNoTerminal))
+                        for inicio in range(len(ParteGramatica)):
+                            if str(gramaticacarga[agreG][0])==ParteGramatica[inicio].getNombreGramatica():
+                                alfaG=0
+                                betaG=0
+                                sigmaG=0
+                                gamaG=0
+                                alcanzoG= None
+                                finalizoG= None
+                                #-------------------------------alfabeto----------------------
+                                for TerminalG in range(len(ParteGramatica[inicio].getAlfabeto())):
+                                    if SiTerminal == ParteGramatica[inicio].getAlfabeto()[TerminalG]:
+                                        alfaG+=1
+                                #----------------------------fin alfabeto----------------------
+                                for firstG in range(len(ParteGramatica[inicio].getNoTerminales())):
+                                    if (PrimerNoTerminal)==ParteGramatica[inicio].getNoTerminales()[firstG].getNombreNoTerminal():
+                                        betaG+=1
+                                        alcanzoG = ParteGramatica[inicio].getNoTerminales()[firstG]
+                                        if ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente():
+                                            for buscando1G in range(len(ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente())):
+                                                if SiTerminal==ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente()[buscando1G]:
+                                                    gamaG+=1
+                                            if gamaG==0:
+                                                ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
+                                        else:
                                             ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
-                                    else:
-                                        ParteGramatica[inicio].getNoTerminales()[firstG].getEstadoSiguiente().append(SiTerminal)
-                            for TerminalG in range(len(ParteGramatica[inicio].getAlfabeto())):
-                                if SiTerminal == ParteGramatica[inicio].getAlfabeto()[TerminalG]:
-                                    alfaG+=1
-                            
-                            for second in range(len(ParteGramatica[inicio].getNoTerminales())):
-                                if str(SegundoNoTerminal)==ParteGramatica[inicio].getNoTerminales()[second].getNombreNoTerminal():
-                                    sigmaG+=1
-                                    finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
-                            if alfaG==0 and betaG==0 and sigmaG==0:
-                                input("Error, un No Terminal o un Terminal que ingresa no existe: ")
-                            else:
-                                if gamaG==0:
-                                    siG=Producciones(alcanzoG,SiTerminal,finalizoG)
-                                    ParteGramatica[inicio].getProduccionesG().append(siG)
+                                for second in range(len(ParteGramatica[inicio].getNoTerminales())):
+                                    if (SegundoNoTerminal)==ParteGramatica[inicio].getNoTerminales()[second].getNombreNoTerminal():
+                                        sigmaG+=1
+                                        finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
+                                #------------------agregamos-----------------
+                                if alfaG==0 and betaG==0 and sigmaG==0:
+                                    input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                                 else:
-                                    input("Error, esta ingresando una produccion que ya existe: ")
+                                    if gamaG==0:
+                                        siG=Producciones(alcanzoG,SiTerminal,finalizoG)
+                                        ParteGramatica[inicio].getProduccionesG().append(siG)
+                                    else:
+                                        input("Error, Una produccion ya Existe: ")
+                    else:
+                        if P_segundo[0]=="$":
+                            for acept in range(len(ParteGramatica)):
+                                if NombreG==ParteGramatica[acept].getNombreGramatica():
+                                    for yes in range(len(ParteGramatica[acept].getNoTerminales())):
+                                        if P_primero[0]==ParteGramatica[acept].getNoTerminales()[yes].getNombreNoTerminal():
+                                            ParteGramatica[acept].getNoTerminales()[yes].setAceptacion(True)
+                        input("ingreso el caracter $")
+
     input("Archivo cargado: ") 
-
-
-
-
 #finaliza carga masiva para la Gramatica
