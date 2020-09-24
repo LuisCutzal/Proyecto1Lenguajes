@@ -218,12 +218,12 @@ def CargarArchivoGramatica():
                         if ParteGramatica[buscoNo].getNoTerminales():
                             comienzaG=0
                             for profundoG in range(len(ParteGramatica[buscoNo].getNoTerminales())):
-                                if str(NoTerminalleido[formaG]) == ParteGramatica[buscoNo].getNoTerminales()[profundoG].getNombreNoTerminal():
+                                if (NoTerminalleido[formaG]) == ParteGramatica[buscoNo].getNoTerminales()[profundoG].getNombreNoTerminal():
                                     comienzaG+=1
-                                if comienzaG==0:
-                                    ParteGramatica[buscoNo].getNoTerminales().append(creacionNo)
-                                else:
-                                    input("El No Terminal ya existe: ")
+                            if comienzaG==0:
+                                ParteGramatica[buscoNo].getNoTerminales().append(creacionNo)
+                            else:
+                                input("El No Terminal ya existe: ")
                         else:
                             ParteGramatica[buscoNo].getNoTerminales().append(creacionNo)
             input("Los No Terminales son: " +str(NoTerminalleido))
