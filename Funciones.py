@@ -5,8 +5,10 @@ import os
 import sys
 #from io import open 
 from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
-import subprocess
+from reportlab.lib.pagesizes import A4
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+
 global ParteAutomata
 ParteAutomata=list()
 global ParteGramatica
@@ -32,10 +34,6 @@ def AgregarAFD(): #agregar automatas manualmente
         while ingresoestados:
             Ingrese_Estado=input("Ingrese Estado del AFD: ")
             tecleoEstado=Ingrese_Estado.upper()
-            #for agrega in (range(len(ParteAutomata))):
-                #ParteAutomata[agrega].getEstados().append(tecleoEstado)
-            #Est.append(Estados(tecleoEstado))
-            #creacionEstado = Est #verificar
             creacionEstado= Estados(tecleoEstado)
             print("el Estado es: " + tecleoEstado)
             condicion=input("¿Desea agregar otro estado?, escriba [Y/N]: ")
@@ -129,11 +127,7 @@ def AgregarAFD(): #agregar automatas manualmente
                                 """print("estado inicial es: " + Einicial)
                                 input("primero")"""
                             ParteAutomata[buscoInicio].getEstados()[ahora].setEstadoInicio(True)
-                            #print("estado es: " + Iguales)
-                            #input("segundo")
-                        #else:
-                            #input("Ingreso un Estado que no Existe: ")
-                            #tengo que retornar 
+
                 else:
                     input("El AFD no cuenta con un estado para volverlo estado inicial: ")
         #-------------------------termina estado inicial
@@ -142,7 +136,7 @@ def AgregarAFD(): #agregar automatas manualmente
         while ingreseEstadoAceptacion:
             Ingerse_estadosAceptacion=str(input("Ingrese Estado de Aceptacion: "))
             tecleo_ingresoAceptacion=Ingerse_estadosAceptacion.upper()
-            condicionA=input("¿Desea agregar otro Estado de Aceptacion?, escriba [Y/N]:")
+            condicionA=input("¿Desea agregar otro Estado de Aceptacion?, escriba [Y/N]: ")
             if condicionA=="Y":
                 for buscoEstado in range(len(ParteAutomata)):
                     if NombreAFD==ParteAutomata[buscoEstado].getNombreAFD():
@@ -151,10 +145,9 @@ def AgregarAFD(): #agregar automatas manualmente
                                 if ParteAutomata[buscoEstado].getEstados()[busco].getNombreEstado()==tecleo_ingresoAceptacion:
                                     ParteAutomata[buscoEstado].getEstados()[busco].setEstadoAceptacion(True)
                                     print("el estado de aceptacion es: " + tecleo_ingresoAceptacion)
-                                    #input("si")
-                                #else:
-                                    #input("Ingreso un estado que no existe: ")
-                                    #tengo que retornar el ciclo while
+                                else:
+                                    input("Ingreso un estado que no existe")
+                                    
                         else:
                             input("El AFD no cuenta con ningun Estado: ")
             else:
@@ -267,14 +260,8 @@ def AgregarAFD(): #agregar automatas manualmente
                                 sigma+=1
                                 finalizo = ParteAutomata[listo].getEstados()[last]
                         if alfa==0 and beta==0 and sigma==0:
-                            """if gama==0:
-                                si = Transiciones(alcanzo, finalizo, siAlfabeto)
-                                ParteAutomata[listo].getTransicicones().append(si)
-                            else:
-                                input("Error, esta ingresando una transicion que ya existe: ")"""
                             input("Error, un estado o un terminal que ingresa no existe: ")
                         else:
-                            #input("Error, un estado o un terminal que ingresa no existe: ")
                             if gama==0:
                                 si = Transiciones(alcanzo, finalizo, siAlfabeto)
                                 ParteAutomata[listo].getTransicicones().append(si)
@@ -289,7 +276,32 @@ def EvaluarCadenaAFD():
     print("Automatas")
     for todos in range(len(ParteAutomata)):
         print("Nombre del AFD: " + ParteAutomata[todos].getNombreAFD())
-    #input("si")
+    elegirAFD=input("Ingrese el Nombre del AFD: ")
+    
+    contador=0
+    for elegir in range(len(ParteAutomata)):
+        if elegirAFD==ParteAutomata[elegir].getNombreAFD():
+            contador+=1 #buscamos si hay un afd con el nombre que se ingreso
+    if contador==0:
+        input("No existe el AFD")
+    else:
+        cadena=str(input("Ingrese una Cadena: ")) #11111
+            
+"""
+
+"""
+
+
+
+
+
+
+
+
+
+
+
+
 #------------finaliza evaluar cadena del automata
 
 
@@ -456,14 +468,8 @@ def AgregarGramatica():
                                     finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
                             #******************finaliza busqueda del segundo No Terminal************
                             if alfaG==0 and betaG==0 and sigmaG==0:
-                                """if gamaG==0:
-                                    siG=Producciones(alcanzoG,SiTerminal,finalizoG)
-                                    ParteGramatica[inicio].getProduccionesG().append(siG)
-                                else:
-                                    input("Error, esta ingresando una produccion que ya existe: ")"""
                                 input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                             else:
-                                #input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                                 if gamaG==0:
                                     siG=Producciones(alcanzoG,SiTerminal,finalizoG)
                                     ParteGramatica[inicio].getProduccionesG().append(siG)
@@ -518,14 +524,8 @@ def AgregarGramatica():
                                     finalizoG=ParteGramatica[inicio].getNoTerminales()[second]
                             #******************finaliza busqueda del segundo No Terminal************
                             if alfaG==0 and betaG==0 and sigmaG==0:
-                                """if gamaG==0:
-                                    siG=Producciones(alcanzoG,SiTerminal,finalizoG)
-                                    ParteGramatica[inicio].getProduccionesG().append(siG)
-                                else:
-                                    input("Error, esta ingresando una produccion que ya existe: ")"""
                                 input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                             else:
-                                #input("Error, un No Terminal o un Terminal que ingresa no existe: ")
                                 if gamaG==0:
                                     siG=Producciones(alcanzoG,SiTerminal,finalizoG)
                                     ParteGramatica[inicio].getProduccionesG().append(siG)
@@ -551,7 +551,7 @@ def GuardarAFDenARchivo():
     for todos in range(len(ParteAutomata)):
         print("Nombre del AFD: " + ParteAutomata[todos].getNombreAFD())
     guardar=str(input("Ingrese el nombre del AFD que desea Guardar: "))
-    comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+    comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1')
     txt = open(comienza+"\\"+guardar+".afd", 'w')
     escribir_estados=""
     escribir_alfabeto=""
@@ -561,19 +561,19 @@ def GuardarAFDenARchivo():
         if guardar==ParteAutomata[bus].getNombreAFD():
             txt.writelines(ParteAutomata[bus].getNombreAFD()+"\n")
             for busEstados in range(len(ParteAutomata[bus].getEstados())):
-                #escribir_estados+=ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()+","
-                if busEstados>=1:
+                escribir_estados+=ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()+","
+                """if busEstados>=1:
                     escribir_estados+="," +ParteAutomata[bus].getEstados()[busEstados].getNombreEstado() 
                 else:
-                    escribir_estados= ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()
+                    escribir_estados= ParteAutomata[bus].getEstados()[busEstados].getNombreEstado()"""
             txt.writelines("Estados: "+ escribir_estados+"\n")
             #alfabeto
             for busAlfa in range(len(ParteAutomata[bus].getAlfabeto())):
-                #escribir_alfabeto+= ParteAutomata[bus].getAlfabeto()[busAlfa]+"," 
-                if busAlfa>=1:
+                escribir_alfabeto+= ParteAutomata[bus].getAlfabeto()[busAlfa]+"," 
+                """if busAlfa>=1:
                     escribir_alfabeto+=","+ ParteAutomata[bus].getAlfabeto()[busAlfa]
                 else:
-                    escribir_alfabeto=ParteAutomata[bus].getAlfabeto()[busAlfa]
+                    escribir_alfabeto=ParteAutomata[bus].getAlfabeto()[busAlfa]"""
             txt.writelines("Alfabeto: " + escribir_alfabeto+ "\n")
             #estado inicial
             for busEInicial in range(len(ParteAutomata[bus].getEstados())):
@@ -583,10 +583,11 @@ def GuardarAFDenARchivo():
             #estado aceptacion
             for busAceptacion in range(len(ParteAutomata[bus].getEstados())):
                 if ParteAutomata[bus].getEstados()[busAceptacion].getEstadoAceptacion()==True:
-                    if busAceptacion>=1:
+                    escribir_EAceptacion+=ParteAutomata[bus].getEstados()[busAceptacion].getNombreEstado()+","
+                    """if busAceptacion>=1:
                         escribir_EAceptacion+=","+ ParteAutomata[bus].getEstados()[busAceptacion].getNombreEstado()
                     else:
-                        escribir_EAceptacion = ParteAutomata[bus].getEstados()[busAceptacion].getNombreEstado()
+                        escribir_EAceptacion = ParteAutomata[bus].getEstados()[busAceptacion].getNombreEstado()"""
             txt.writelines("Estado de Aceptacion: " + escribir_EAceptacion +"\n")
             #transiciones
             for busTransiciones in range(len(ParteAutomata[bus].getTransicicones())):
@@ -602,7 +603,7 @@ def GuardarGramaticaEnArchivo():
     for todos in range(len(ParteGramatica)):
         print("Nombre de la Gramatica: " + ParteGramatica[todos].getNombreGramatica())
     guardar=str(input("Ingrese el nombre de la Gramatica que desea Guardar: "))
-    comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
+    comienza= os.path.join(os.path.join(os.environ['USERPROFILE']), 'C:\\Users\\cutzal\\Desktop\\escritorio\\INGENIERIA\\lenguajes\\2020\\segundo semestre\\Proyecto1')
     txt = open(comienza+"\\"+guardar+".gre", 'w')
     escribir_NoTerminales=""
     escribir_terminales=""
@@ -612,17 +613,19 @@ def GuardarGramaticaEnArchivo():
             txt.writelines(ParteGramatica[bus].getNombreGramatica()+"\n")
             #escribir no terminales (estados)
             for busNoTerminales in range(len(ParteGramatica[bus].getNoTerminales())):
-                if busNoTerminales>=1:
+                escribir_NoTerminales+=ParteGramatica[bus].getNoTerminales()[busNoTerminales].getNombreNoTerminal()+","
+                """if busNoTerminales>=1:
                     escribir_NoTerminales+=","+ParteGramatica[bus].getNoTerminales()[busNoTerminales].getNombreNoTerminal()
                 else:
-                    escribir_NoTerminales=ParteGramatica[bus].getNoTerminales()[busNoTerminales].getNombreNoTerminal()
+                    escribir_NoTerminales=ParteGramatica[bus].getNoTerminales()[busNoTerminales].getNombreNoTerminal()"""
             txt.writelines("No Terminal: " + escribir_NoTerminales+"\n")
             #escribir alfabeto (terminales)
             for busTerminales in range(len(ParteGramatica[bus].getAlfabeto())):
-                if busTerminales>=1:
+                escribir_terminales+= ParteGramatica[bus].getAlfabeto()[busTerminales]+","
+                """if busTerminales>=1:
                     escribir_terminales+=","+ ParteGramatica[bus].getAlfabeto()[busTerminales]
                 else:
-                    escribir_terminales=ParteGramatica[bus].getAlfabeto()[busTerminales]
+                    escribir_terminales=ParteGramatica[bus].getAlfabeto()[busTerminales]"""
             txt.writelines("Terminal: " + escribir_terminales +"\n")
             #escribir no terminal inicial
             for busNoTerminalInicial in range(len(ParteGramatica[bus].getNoTerminales())):
@@ -684,7 +687,7 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
             gen.drawString(75,565, "Transiciones: ")
             gen.drawString(75,545,eT)
             #grafica
-            arranca = open('C:\\Users\\cutzal\\Desktop\\'+nombre+'.dot', 'w',encoding='utf-8')
+            arranca = open(nombre+'.dot', 'w',encoding='utf-8')
             arranca.write("digraph Si  {\n")
             arranca.write("rankdir = LR;\n")
             arranca.write("EMPTY [style=invis]\n")
@@ -693,24 +696,22 @@ def GenerarPDF_AFD(): #preguntar por detalleAFD
                 if nombre==ParteAutomata[i].getNombreAFD():
                     for a in range(len(ParteAutomata[i].getEstados())):
                         if ParteAutomata[i].getEstados()[a].getEstadoAceptacion()==True:
-                            arranca.write("node [shape=doublecircle,style=filled] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
+                            arranca.write("node [shape=doublecircle,style=filled,color=yellow] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
                         else:
-                            arranca.write("node [shape=circle,style=filled] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
+                            arranca.write("node [shape=circle,style=filled,color=gray] "+ParteAutomata[i].getEstados()[a].getNombreEstado()+"\n")
                     #transiciones
                     Inicial=""
                     for start in range(len(ParteAutomata[i].getEstados())):
                         if ParteAutomata[i].getEstados()[start].getEstadoInicio()==True:
                             Inicial=ParteAutomata[i].getEstados()[start].getNombreEstado()
-                    arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
+                    arranca.write("EMPTY"+" -> "+Inicial+" [label=< <B>\" "+" </B>>,color=red];\n")
                     for al in range(len(ParteAutomata[i].getTransicicones())):
-                        arranca.write(str(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado())+" -> "+str(ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion().getNombreEstado())+" [label=\""+str(ParteAutomata[i].getTransicicones()[al].getDatoTransicion())+" \"];\n")
+                        arranca.write(str(ParteAutomata[i].getTransicicones()[al].getEstadoInicialTransicion().getNombreEstado())+" -> "+str(ParteAutomata[i].getTransicicones()[al].getEstadoFinalTransicion().getNombreEstado())+"[label=< <B>\""+str(ParteAutomata[i].getTransicicones()[al].getDatoTransicion())+" \"</B>>,color=green];\n")
                     arranca.write("}")
             arranca.close()
             os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
             siiiiii=nombre+".png"
             gen.drawImage(siiiiii,75,400,300,100)
-            
-
     gen.save()
 
 def GenerarPDF_Gramatica():
@@ -720,13 +721,16 @@ def GenerarPDF_Gramatica():
     nombre=str(input("ingrese el Nombre del la Gramatica que desea Crear su PDF: "))
     Npdf= nombre+".pdf"
     gen=canvas.Canvas(Npdf)
-    gen.setFontSize(16)
-    #gen.drawString(225,775,nombre)
-    #gen.drawString(75,730, "Gramatica")
-    gen.setFont('Helvetica', 11)
+    gen.setFontSize(14)
+    pdfmetrics.registerFont(TTFont('Vera', 'Vera.ttf'))
+    pdfmetrics.registerFont(TTFont('VeraBd', 'VeraBd.ttf'))
+    pdfmetrics.registerFont(TTFont('VeraIt', 'VeraIt.ttf'))
+    pdfmetrics.registerFont(TTFont('VeraBI', 'VeraBI.ttf'))
+    gen.setFont('VeraBI', 12)
     for eso in range(len(ParteGramatica)):
         if nombre==ParteGramatica[eso].getNombreGramatica():
             gen.drawString(75,715,"Nombre: "+ ParteGramatica[eso].getNombreGramatica())
+            #gen.drawCentredString(715,715,"Nombre: "+ ParteGramatica[eso].getNombreGramatica())
             #estados (NoTerminales)
             e=""
             for est in range(len(ParteGramatica[eso].getNoTerminales())):
@@ -757,7 +761,7 @@ def GenerarPDF_Gramatica():
                     eT2+=(ParteGramatica[eso].getNoTerminales()[busqueda].getNombreNoTerminal()+">$"+"\n")
             gen.drawString(75,545, " " +eT2)
             #grafica
-            arranca = open('C:\\Users\\cutzal\\Desktop\\'+nombre+'.dot', 'w',encoding='utf-8')
+            arranca = open(nombre+'.dot', 'w',encoding='utf-8')
             arranca.write("digraph SI  {\n")
             arranca.write("rankdir = LR;\n")
             arranca.write("EMPTY [style=invis]\n")
@@ -766,26 +770,24 @@ def GenerarPDF_Gramatica():
                 if nombre==ParteGramatica[i].getNombreGramatica():
                     for a in range(len(ParteGramatica[i].getNoTerminales())):
                         if ParteGramatica[i].getNoTerminales()[a].getAceptacion()==True:
-                            arranca.write("node [shape=doublecircle,style=filled] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
+                            arranca.write("node [shape=doublecircle,style=filled,color=yellow] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
                         else:
-                            arranca.write("node [shape=circle,style=filled] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
+                            arranca.write("node [shape=circle,style=filled,color=gray] "+ParteGramatica[i].getNoTerminales()[a].getNombreNoTerminal()+"\n")
                     #transiciones
                     Inicial=""
                     for start in range(len(ParteGramatica[i].getNoTerminales())):
                         if ParteGramatica[i].getNoTerminales()[start].getEstadoInicial()==True:
                             Inicial=ParteGramatica[i].getNoTerminales()[start].getNombreNoTerminal()
-                    arranca.write("EMPTY"+" -> "+Inicial+" [label=\" "+" \"];\n")
+                    arranca.write("EMPTY"+" -> "+Inicial+" [label=< <B>\" "+" \"</B>>,color=red];\n")
                     for al in range(len(ParteGramatica[i].getProduccionesG())):
-                        arranca.write(str(ParteGramatica[i].getProduccionesG()[al].getTerminalInicial().getNombreNoTerminal())+" -> "+str(ParteGramatica[i].getProduccionesG()[al].getTerminalSiguiente().getNombreNoTerminal())+" [label=\""+str(ParteGramatica[i].getProduccionesG()[al].getAlfabetoProducciones())+" \"];\n")
+                        arranca.write(str(ParteGramatica[i].getProduccionesG()[al].getTerminalInicial().getNombreNoTerminal())+
+                        " -> "+str(ParteGramatica[i].getProduccionesG()[al].getTerminalSiguiente().getNombreNoTerminal())+
+                        " [label=< <B>\""+str(ParteGramatica[i].getProduccionesG()[al].getAlfabetoProducciones())+" \"</B>>,color=green];\n")
                     arranca.write("}")
             arranca.close()
-            #os.system('dot -Tpng archivo.dot -o Grafica.png')
             os.system('dot -Tpng '+nombre+'.dot -o '+nombre+'.png')
             siiiiii=nombre+".png"
-            gen.drawImage(siiiiii,75,400,300,100)
-
-
-
-
-
+            gen.drawImage(siiiiii,75,350,400,100)
     gen.save()
+
+

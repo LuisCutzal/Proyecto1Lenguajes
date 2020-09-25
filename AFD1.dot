@@ -1,4 +1,4 @@
-digraph A  {
+digraph Si  {
 rankdir = LR;
 EMPTY [style=invis]
 EMPTY [shape=point]

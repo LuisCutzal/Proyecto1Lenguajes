@@ -57,7 +57,7 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
         print ("\t6 - Generar Gramática Regular: ")
         print ("\t7 - Regresar:")
         print("*****************************")
-        opcionSub = input("Escriba uno de los 6 números a  la que quiere ingresar: ")
+        opcionSub = input("Escriba uno de los 6 números a  la opcion que quiere ingresar: ")
         if opcionSub== "1":
             print("Eligio Crear AFD")
             print("espere...")
@@ -74,7 +74,8 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             print("Eligio Evaluar Cadena")
             print("espere...")
             time.sleep(1)
-            Funciones.EvaluarCadenaAFD()
+            SubMenu1_1()
+            #Funciones.EvaluarCadenaAFD()
         elif opcionSub=="4":
             Funciones.GuardarAFDenARchivo()
             #ya
@@ -89,6 +90,26 @@ def SubMenu1(): #------------------------------modulo AFD-----------------------
             time.sleep(1)
             #ya
             break    
+        else:
+            print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
+            time.sleep(2)
+def SubMenu1_1():
+    while True:
+        os.system('cls')
+        print("*****************************")
+        print ("MODULO AFD")
+        print ("\t1 - Validar una Cadena: ")
+        print ("\t2 - Ruta en AFD: ")
+        print ("\t3 - Regresar: ")
+        opcionSub=input("Escriba uno de los 3 números a la opcion que quiere ingresar: ")
+        if opcionSub=="1":
+            Funciones.EvaluarCadenaAFD()
+        elif opcionSub=="2":
+            input("Ruta afd")
+        elif opcionSub=="3":
+            print("regresando...")
+            time.sleep(1)
+            break
         else:
             print("Ha pusaldo una tecla incorrecta, vuelva a intentarlo")
             time.sleep(2)
@@ -107,7 +128,7 @@ def SubMenu2(): #------------------------------modulo Gramáticas Regulares-----
         print ("\t6 - Generar Reporte Gramática Regular: ")
         print ("\t7 - Regresar:")
         print("*****************************")
-        opcionSub = input("Escriba uno de los 6 números a  la que quiere ingresar: ")
+        opcionSub = input("Escriba uno de los 6 números a  la opcion que quiere ingresar: ")
         if opcionSub== "1":
             Funciones.AgregarGramatica()
             #ya

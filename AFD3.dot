@@ -1,0 +1,16 @@
+digraph Si  {
+rankdir = LR;
+EMPTY [style=invis]
+EMPTY [shape=point]
+node [shape=circle,style=filled,color=gray] Q1
+node [shape=circle,style=filled,color=gray] Q2
+node [shape=circle,style=filled,color=gray] Q3
+node [shape=doublecircle,style=filled,color=yellow] Q4
+EMPTY -> Q1 [label=< <B>"  </B>>,color=red];
+Q1 -> Q2[label=< <B>"a "</B>>,color=green];
+Q2 -> Q3[label=< <B>"a "</B>>,color=green];
+Q3 -> Q4[label=< <B>"a "</B>>,color=green];
+Q3 -> Q4[label=< <B>"b "</B>>,color=green];
+Q4 -> Q4[label=< <B>"a "</B>>,color=green];
+Q4 -> Q4[label=< <B>"b "</B>>,color=green];
+}
